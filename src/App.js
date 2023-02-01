@@ -1,24 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import { Fragment } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { privateRoutes, publicRoutes } from '~/routes/routes';
+import DefaultLayout from '~/layouts/DefaultLayout/DefaultLayout';
+import ScrollToTop from '~/components/ScrollToTop/ScrollToTop';
+import { ModalProvider } from './storages/context/ModalContext';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ModalProvider>
+      <Router>
+        <div className="App">
+          <ScrollToTop />
+          <Routes>
+            {publicRoutes.map((route, index) => {
+              let Layout;
+              if (route.layout === null) Layout = Fragment;
+              else Layout = route.layout || DefaultLayout;
+              const Page = route.component;
+              return (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={
+                    <Layout>
+                      <Page />
+                    </Layout>
+                  }
+                />
+              );
+            })}
+            {privateRoutes.map((route, index) => {
+              let Layout;
+              if (route.layout === null) Layout = Fragment;
+              else Layout = route.layout || DefaultLayout;
+              const Page = route.component;
+              return (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={
+                    <Layout>
+                      <Page />
+                    </Layout>
+                  }
+                />
+              );
+            })}
+          </Routes>
+        </div>
+      </Router>
+    </ModalProvider>
   );
 }
 
