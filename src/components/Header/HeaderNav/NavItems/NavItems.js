@@ -17,6 +17,7 @@ function NavItem({ item }) {
     };
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subItems]);
 
   const showSubItems = () => {

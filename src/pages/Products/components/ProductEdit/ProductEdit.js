@@ -1,24 +1,29 @@
 import { useMemo, useState } from 'react';
+import ProductEditChilds from './ProductEditChild';
+import ProductEditMedia from './ProductEditMedia';
 import ProductEditParent from './ProductEditParent';
 
-function ProductEdit({ product }) {
+function ProductEdit({ product, cancelEdit }) {
   const [activeNav, setActiveNav] = useState(0);
   const editNav = useMemo(() => {
     return [
       {
         value: 'parent',
         content: 'Sản phẩm cha',
-        component: <ProductEditParent product={product} />,
+        component: <ProductEditParent product={product} cancelEdit={cancelEdit} />,
       },
       {
         value: 'childs',
         content: 'Sản phẩm con',
+        component: <ProductEditChilds product={product} cancelEdit={cancelEdit} />,
       },
       {
         value: 'media',
         content: 'Hình ảnh',
+        component: <ProductEditMedia product={product} cancelEdit={cancelEdit} />,
       },
     ];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
   return (
     <>
@@ -41,7 +46,7 @@ function ProductEdit({ product }) {
           );
         })}
       </div>
-      <div className="flex-1 overflow-scroll">{editNav[activeNav]?.component}</div>
+      {editNav[activeNav]?.component}
     </>
   );
 }

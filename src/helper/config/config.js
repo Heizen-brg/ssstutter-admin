@@ -17,3 +17,7 @@ export const SERVICES = {
     },
   },
 };
+
+export const CONFIG = {
+  IMAGE_BASE_URL: 'https://cdn.ssstutter.com/products/',
+};

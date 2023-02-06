@@ -1,4 +1,4 @@
-const imageBaseUrl = 'https://cdn.ssstutter.com/products/';
+import { CONFIG } from '~/helper/config/config';
 
 function ProductParent({ product }) {
   return (
@@ -95,7 +95,7 @@ function ProductParent({ product }) {
                   </div>
                   <div className="flex gap-12">
                     <div className="w-28 min-w-[7rem] border rounded aspect-square overflow-hidden flex items-center justify-center">
-                      <img className="w-full" src={imageBaseUrl + thumbnail} alt="thumbnail" />
+                      <img className="w-full" src={CONFIG.IMAGE_BASE_URL + thumbnail} alt="thumbnail" />
                     </div>
                     <div className="flex gap-4 flex-nowrap overflow-auto">
                       {gallery.map((img, index) => (
@@ -103,7 +103,7 @@ function ProductParent({ product }) {
                           key={index}
                           className="w-28 min-w-[7rem] border rounded aspect-square overflow-hidden flex items-center justify-center"
                         >
-                          <img className="w-full" src={imageBaseUrl + img.x100} alt="gallery" />
+                          <img className="w-full" src={CONFIG.IMAGE_BASE_URL + img.x100} alt="gallery" />
                         </div>
                       ))}
                     </div>

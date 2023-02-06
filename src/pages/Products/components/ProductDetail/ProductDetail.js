@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react';
+import Button from '~/components/Button/Button';
 import ProductChilds from './ProductChilds';
 import ProductParent from './ProductParent';
 import ProductStocks from './ProductStocks';
 
-function ProductDetail({ product }) {
+function ProductDetail({ product, setEdit }) {
   const [activeNav, setActiveNav] = useState(0);
   const modalNav = useMemo(() => {
     return [
@@ -47,6 +48,11 @@ function ProductDetail({ product }) {
         })}
       </div>
       <div className="flex-1 overflow-scroll">{modalNav[activeNav]?.component}</div>
+      <div className="flex items-center justify-end p-4">
+        <Button className="text-sm py-2 px-4" onClick={setEdit} primary>
+          Cập nhật
+        </Button>
+      </div>
     </>
   );
 }

@@ -1,8 +1,9 @@
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
+import Barcode from 'react-barcode';
+import { CONFIG } from '~/helper/config/config';
 import { callProductService } from '~/helper/services/callServices';
-const imageBaseUrl = 'https://cdn.ssstutter.com/products/';
 
 function ProductChilds({ product }) {
   const [childs, setChilds] = useState([]);
@@ -44,7 +45,7 @@ function ProductChilds({ product }) {
           <div key={index} className="p-4 border-b">
             <div className="flex gap-4 mb-4">
               <div className="w-36 rounded aspect-square overflow-hidden flex items-center justify-center">
-                <img className="w-full" src={imageBaseUrl + thumbnail} alt="thumbnail" loading="auto" />
+                <img className="w-full" src={CONFIG.IMAGE_BASE_URL + thumbnail} alt="thumbnail" loading="auto" />
               </div>
               <div className="flex flex-1 gap-16">
                 <div className="flex flex-col flex-1 gap-2">
@@ -53,9 +54,9 @@ function ProductChilds({ product }) {
                   <div className="text-sm">Giá: {child.price.toLocaleString('en-US')}</div>
                 </div>
                 <div className="flex flex-col gap-2 w-64">
-                  <div className="text-sm">Mã vạch: {child.barcode}</div>
                   <div className="text-sm">Trạng thái: {child.isActive ? 'Hoạt động' : 'Ẩn'}</div>
                   <div className="text-sm">Ngày tạo: {new Date(child.createdTime).toLocaleString('en-GB')}</div>
+                  <Barcode value={child.barcode} fontSize={16} height={60} width={1.5} margin={0} />
                 </div>
               </div>
             </div>

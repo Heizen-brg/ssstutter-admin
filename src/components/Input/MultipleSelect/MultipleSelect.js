@@ -3,9 +3,9 @@ import Option from './MultipleSelectOption';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function MultipleSelect({ name, title, options = [], onChange, placeholder, className = '' }) {
+function MultipleSelect({ name, title, defaultValue = [], options = [], onChange, placeholder, className = '' }) {
   const [showOptions, setShowOptions] = useState(false);
-  const [selected, setSelected] = useState([]);
+  const [selected, setSelected] = useState(defaultValue);
   const [search, setSearch] = useState('');
   const [displayOptions, setDisplayOptions] = useState(options);
 
