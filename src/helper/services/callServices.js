@@ -5,13 +5,15 @@ const productAxios = axios.create({ baseURL: SERVICES.PRODUCT.BASE_URL });
 const warehouseAxios = axios.create({ baseURL: SERVICES.WAREHOUSE.BASE_URL });
 
 const callServices = (axios, SERVICES) => {
-  return async (method, service, data, auth, controller) => {
+  return async (method, service, payload, auth, controller) => {
+    let { params, ...data } = payload;
     method = method.toUpperCase();
     let config = { headers: {} };
     if (controller) config.signal = controller.signal;
     if (auth) config.headers.Authorization = auth;
     let endpoint = SERVICES[method][service];
     if (!endpoint) throw new Error(`Service ${service} not found`);
+    if (params) endpoint += '/' + params;
     let result = null;
     if (method === 'GET') {
       try {
