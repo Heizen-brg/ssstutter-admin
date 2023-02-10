@@ -1,5 +1,3 @@
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef, useState } from 'react';
 import Button from '~/components/Button/Button';
 import NavDropdown from './NavDropdown';
@@ -26,10 +24,13 @@ function NavItem({ item }) {
   };
 
   return (
-    <li className="relative h-full" ref={ref}>
+    <li
+      className="relative h-full after:absolute after:transition-all after:duration-300 after:hover:w-full after:bottom-0 after:rounded after:left-0 after:bg-black after:h-1 after:w-0"
+      ref={ref}
+    >
       <Button
-        className="h-full"
-        rightIcon={hasSubItems && <FontAwesomeIcon icon={faAngleDown} />}
+        className="relative h-full font-bold text-xl uppercase"
+        // rightIcon={hasSubItems && <FontAwesomeIcon icon={faAngleDown} />}
         to={item.to}
         onClick={showSubItems}
         medium

@@ -50,7 +50,7 @@ function Button({
   if (medium) size = 'min-w-[100px] py-2 px-4';
   else if (large) size = 'min-w-[140px] py-3 px-4';
 
-  let defaultClass = 'flex justify-center items-center gap-1 cursor-pointer rounded select-none';
+  let defaultClass = 'flex items-center cursor-pointer rounded select-none';
   if (custom) defaultClass = '';
 
   return (

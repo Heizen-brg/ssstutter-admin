@@ -3,6 +3,7 @@ import { SERVICES } from '../config/config';
 
 const productAxios = axios.create({ baseURL: SERVICES.PRODUCT.BASE_URL });
 const warehouseAxios = axios.create({ baseURL: SERVICES.WAREHOUSE.BASE_URL });
+const mediaAxios = axios.create({ baseURL: SERVICES.MEDIA.BASE_URL });
 
 const callServices = (axios, SERVICES) => {
   return async (method, service, payload, auth, controller) => {
@@ -89,3 +90,4 @@ const callServices = (axios, SERVICES) => {
 
 export const callProductService = callServices(productAxios, SERVICES.PRODUCT.ENDPOINT);
 export const callWarehouseService = callServices(warehouseAxios, SERVICES.WAREHOUSE.ENDPOINT);
+export const callMediaService = callServices(mediaAxios, SERVICES.MEDIA.ENDPOINT);

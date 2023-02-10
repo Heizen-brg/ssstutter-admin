@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import Navbar from '~/components/Header/HeaderNav/Navbar/Navbar';
 import images from '~/assets/images';
 
@@ -7,6 +5,14 @@ const NAV_ITEMS = [
   {
     title: 'Trang chủ',
     to: '/',
+  },
+  {
+    title: 'Banner',
+    to: '/banner',
+  },
+  {
+    title: 'Media',
+    to: '/media',
   },
   {
     title: 'Sản phẩm',
@@ -27,17 +33,17 @@ const NAV_ITEMS = [
 
 function Header() {
   return (
-    <header className="w-full border-b h-14 flex items-center justify-center px-10">
-      <div className="h-full w-full max-w-screen-xl flex justify-between items-center">
-        <div className="w-6">
-          <img src={images.logo} alt="SSStutter Logo" className="object-contain aspect-square" />
+    <header className="w-full h-screen flex items-center justify-center px-10 border-r shadow-lg">
+      <div className="h-full w-full max-w-screen-xl  ">
+        <div className="grid p-4">
+          <img src={images.logo} alt="SSStutter Logo" className="w-24 object-contain text-center aspect-square" />
         </div>
         <Navbar items={NAV_ITEMS} />
-        <div>
+        {/* <div>
           <button className="text-xl">
             <FontAwesomeIcon icon={faEllipsisVertical} />
           </button>
-        </div>
+        </div> */}
       </div>
     </header>
   );

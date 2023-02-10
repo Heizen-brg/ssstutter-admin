@@ -16,8 +16,23 @@ export const SERVICES = {
       },
     },
   },
+  MEDIA: {
+    BASE_URL: 'https://core.leanow.vn/api',
+    ENDPOINT: {
+      GET: {
+        SEARCH_MEDIA: 'media/search',
+      },
+      POST: {
+        UPLOAD_MEDIA: 'media/upload',
+      },
+      DELETE: {
+        DELETE_MEDIA: 'media/remove',
+      },
+    },
+  },
 };
 
 export const CONFIG = {
   IMAGE_BASE_URL: 'https://cdn.ssstutter.com/products/',
+  CMS_IMAGE_URL: 'https://core.leanow.vn/',
 };
