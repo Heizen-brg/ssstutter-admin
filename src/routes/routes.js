@@ -1,9 +1,9 @@
-import Homepage from '~/pages/Homepage/Homepage';
-import ProductList from '~/pages/Products/ProductList';
-import SignIn from '~/pages/SignIn/SignIn';
+import { Media, Banner, Homepage, ProductList, SignIn } from '~/pages';
 
 export const publicRoutes = [
   { path: '/', component: Homepage },
+  { path: '/banner', component: Banner },
+  { path: '/media', component: Media },
   { path: '/sign-in', component: SignIn },
 ];
 

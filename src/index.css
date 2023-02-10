@@ -1,3 +1,64 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+html {
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 12px;
+}
+
+.ribbon {
+  display: block;
+  width: 100%;
+  padding-top: calc((3 / 16) * 100%);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.landscape {
+  display: block;
+  width: 100%;
+  padding-top: calc((9 / 16) * 100%);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.portrait {
+  display: block;
+  width: 100%;
+  padding-top: calc((5 / 4) * 100%);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.square {
+  display: block;
+  width: 100%;
+  padding-top: calc((1 / 1) * 100%);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.retangle {
+  display: block;
+  width: 100%;
+  padding-top: calc((4 / 5) * 100%);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.active {
+  --tw-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate)
+    var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.active > span {
+  color: black;
+}
