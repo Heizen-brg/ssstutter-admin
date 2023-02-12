@@ -74,6 +74,7 @@ const Media = () => {
 
   useEffect(() => {
     searchMedia();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query.skip]);
 
   return (
@@ -89,8 +90,8 @@ const Media = () => {
 
         <div className="flex flex-row justify-end p-5">
           <Pagination
-            count={Math.ceil(mediaTotal / 10)}
-            defaultPage={6}
+            count={Math.ceil(mediaTotal / 10) || 0}
+            defaultPage={1}
             onChange={(e, page) => pagination(e, page)}
             size="small"
           />
@@ -114,6 +115,7 @@ const Media = () => {
                 className="relative hover:z-10 hover:scale-110 hover:border-4 hover:border-white transition-all ease-in-out"
                 loading="lazy"
                 onClick={() => editMedia(item)}
+                alt="media"
               />
             </ImageListItem>
           ))}

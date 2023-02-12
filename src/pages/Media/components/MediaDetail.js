@@ -1,3 +1,5 @@
+import { faCopy } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@mui/material';
 import React from 'react';
 import { CONFIG } from '~/helper/config/config';
@@ -25,19 +27,40 @@ const MediaDetail = (props) => {
       return;
     }
   };
+
+  const handleNoImage = (e) => {
+    e.currentTarget.onerror = null;
+    e.currentTarget.src = 'https://cdn.ssstutter.com/products/no_image.png';
+  };
+  const handleErrorImage = (e) => {
+    e.currentTarget.onerror = handleNoImage;
+    // eslint-disable-next-line no-self-assign
+    e.currentTarget.src = e.currentTarget.src;
+  };
+
   return (
-    <div>
-      <img className="w-full" src={`${CONFIG.CMS_IMAGE_URL}${url}?fit=crop&auto=format`} />
-      <div className="flex items-center justify-between mt-4">
-        <p className="text-center text-lg px-4 py-2 rounded shadow-inner bg-gray-200" onClick={copyLink}>
-          {CONFIG.CMS_IMAGE_URL}
-          {url}
+    <>
+      <div>
+        <img
+          className="w-full"
+          onError={handleErrorImage}
+          src={`${CONFIG.CMS_IMAGE_URL}${url}?fit=crop&auto=format`}
+          alt="media"
+        />
+      </div>
+      <div className="flex items-center justify-between mt-4 sticky bottom-0">
+        <p
+          className="flex gap-4 items-center text-center cursor-copy text-lg px-4 py-2 rounded shadow-inner bg-gray-200"
+          onClick={copyLink}
+        >
+          <span>{CONFIG.CMS_IMAGE_URL + url}</span>
+          <FontAwesomeIcon icon={faCopy} />
         </p>
         <Button onClick={deleteMedia} variant="contained" color="error">
           Xoá
         </Button>
       </div>
-    </div>
+    </>
   );
 };
 
