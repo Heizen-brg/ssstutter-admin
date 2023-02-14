@@ -30,6 +30,23 @@ export const SERVICES = {
       },
     },
   },
+  BANNER: {
+    BASE_URL: 'https://core.leanow.vn/api',
+    ENDPOINT: {
+      GET: {
+        SEARCH_BANNER: 'banner/search',
+      },
+      POST: {
+        CREATE_BANNER: 'banner/create',
+      },
+      PUT: {
+        UPDATE_BANNER: 'banner/update',
+      },
+      DELETE: {
+        DELETE_BANNER: 'banner/remove',
+      },
+    },
+  },
 };
 
 export const CONFIG = {

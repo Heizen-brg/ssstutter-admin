@@ -14,7 +14,7 @@ const srcset = (image, size) => {
 };
 const Media = () => {
   const [media, setMedia] = useState([]);
-  const [mediaTotal, setMediaTotal] = useState();
+  const [mediaTotal, setMediaTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState({
     skip: 0,
@@ -22,8 +22,9 @@ const Media = () => {
   });
   const { notification } = useNoti();
   const { openDialog } = useDialog();
-  const imagePreview = (file) =>
-    new Promise((rs, rj) => {
+  const imagePreview = (file) => {
+    if (!file) return false;
+    return new Promise((rs, rj) => {
       if (file.size >= 819200) {
         notification('Ảnh không được vượt quá 800kb', 'fail');
         return false;
@@ -34,6 +35,7 @@ const Media = () => {
         rs(reader.result);
       };
     });
+  };
 
   const uploadImage = async (e) => {
     let { files } = e.target;

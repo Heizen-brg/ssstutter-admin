@@ -7,10 +7,11 @@ const ImageUpload = (props) => {
   const { notification } = useNoti();
   const [media, setMedia] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { ratio, url, imgUpload } = props;
 
   const imagePreview = (file) => {
     if (!file) return false;
-    new Promise((rs, rj) => {
+    return new Promise((rs, rj) => {
       if (file.size >= 819200) {
         notification('Ảnh không được vượt quá 800kb', 'fail');
         return false;
@@ -27,9 +28,9 @@ const ImageUpload = (props) => {
     let { files } = e.target;
     let img = await imagePreview(files[0]);
     setLoading(true);
-
     try {
       const media = await callMediaService('POST', 'UPLOAD_MEDIA', { media: img });
+      imgUpload(media);
       notification('Upload ảnh thành công', 'success');
       setMedia(media);
     } catch (error) {
@@ -39,7 +40,6 @@ const ImageUpload = (props) => {
     }
   };
 
-  const { ratio, url } = props;
   return (
     <>
       <label
@@ -55,7 +55,7 @@ const ImageUpload = (props) => {
         className={`border ${ratio} relative`}
       >
         {loading && (
-          <div className="absotule left-0 top-0 w-full h-full grid place-content-center">
+          <div className="absolute bg-black bg-opacity-10 left-0 top-0 w-full h-full grid place-content-center">
             <CircularProgress />
           </div>
         )}

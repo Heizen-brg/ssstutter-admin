@@ -2,24 +2,47 @@ import React, { useState } from 'react';
 import { TextField, MenuItem, Button } from '@mui/material';
 import { ImageUpload } from '~/components';
 import { useDialog } from '~/storages/context/DialogContext';
+import { callBannerService } from '~/helper/services/callServices';
+import { useNoti } from '~/storages/context/NotificationContext';
 const BannerDetail = () => {
   const { toggleModal, openDialog } = useDialog();
-
+  const [loading, setLoading] = useState(false);
+  const { notification } = useNoti();
   const [banner, setBanner] = useState({
     title: '',
-    link: '',
+    url: '',
     cta: '',
-    color: '',
-    img: '',
+    ctaColor: '',
+    image: '',
+    mobileImage: '',
     type: '',
   });
   const handleChange = (prop) => (event) => {
     setBanner({ ...banner, [prop]: event.target.value });
   };
 
-  const handleConfirm = () => {
-    toggleModal(false);
+  const bannerUpload = (data) => {
+    console.log(data);
+    setBanner({ ...banner, image: data.url });
   };
+  const bannerMobileUpload = (data) => {
+    console.log(data);
+    setBanner({ ...banner, mobileImage: data.url });
+  };
+
+  const createBanner = async () => {
+    setLoading(true);
+    try {
+      await callBannerService('POST', 'CREATE_BANNER', banner);
+      notification('Tạo banner thành công', 'success');
+      toggleModal(false);
+    } catch (error) {
+      notification(error.message, 'fail');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleClose = () => {
     toggleModal(false);
   };
@@ -28,10 +51,10 @@ const BannerDetail = () => {
     <div className=" grid  gap-10 p-4  bg-white overflow-auto max-h-full ">
       <div className="grid grid-cols-4 gap-5">
         <div className="w-full col-span-3">
-          <p> Desktop </p> <ImageUpload ratio="landscape" />
+          <p> Desktop </p> <ImageUpload ratio="landscape" imgUpload={bannerUpload} />
         </div>
         <div className="w-full col-span-1">
-          <p> Mobile </p> <ImageUpload ratio="portrait" />
+          <p> Mobile </p> <ImageUpload ratio="portrait" imgUpload={bannerMobileUpload} />
         </div>
       </div>
       <div>
@@ -53,7 +76,7 @@ const BannerDetail = () => {
           fullWidth
           variant="standard"
           size="small"
-          onChange={handleChange('link')}
+          onChange={handleChange('url')}
         />
         <div className="grid grid-cols-2 gap-10">
           <TextField
@@ -74,7 +97,7 @@ const BannerDetail = () => {
             fullWidth
             variant="standard"
             size="small"
-            onChange={handleChange('color')}
+            onChange={handleChange('ctaColor')}
           />
         </div>
         <TextField
@@ -94,7 +117,7 @@ const BannerDetail = () => {
         <Button variant="outlined" className="w-1/3" onClick={handleClose}>
           Huỷ
         </Button>
-        <Button variant="contained" className="w-1/3" onClick={handleConfirm}>
+        <Button variant="contained" className="w-1/3" onClick={createBanner}>
           Tạo
         </Button>
       </div>

@@ -29,7 +29,7 @@ function NavItem({ item }) {
       ref={ref}
     >
       <Button
-        className="relative h-full font-bold text-xl uppercase"
+        className="relative h-full text-xl uppercase"
         // rightIcon={hasSubItems && <FontAwesomeIcon icon={faAngleDown} />}
         to={item.to}
         onClick={showSubItems}
