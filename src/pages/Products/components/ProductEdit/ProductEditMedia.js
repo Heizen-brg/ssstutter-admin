@@ -6,7 +6,7 @@ function ProductEditMedia({ product, cancelEdit }) {
     <>
       <div className="flex-1 overflow-scroll">
         <div className="grid md:grid-cols-3 md:gap-12 p-4 h-full gap-y-12 grid-cols-1">
-          <div className="flex flex-col gap-2 max-md:row-span-2 max-sm:row-span-1">
+          <div className="flex flex-col gap-2 max-md:row-span-2 max-sm:row-span-1 shadow">
             <img
               className="aspect-[3/4] object-cover"
               src={`https://cdn.ssstutter.com/products/${product?.media?.featured || 'no_image.png'}`}

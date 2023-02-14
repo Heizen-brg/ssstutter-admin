@@ -1,10 +1,7 @@
 {
   "plugins": [
+    ["inline-react-svg"],
     [
-      "inline-react-svg"
-    ]  ,
-      [
-      
       "module-resolver",
       {
         "alias": {

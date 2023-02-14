@@ -1,5 +1,6 @@
-import Navbar from '~/components/Header/HeaderNav/Navbar/Navbar';
+import Navbar from '~/components/Sidebar/SidebarNav/Nav/Nav';
 import images from '~/assets/images';
+import SidebarFooter from './SidebarFooter/SidebarFooter';
 
 const NAV_ITEMS = [
   {
@@ -23,7 +24,7 @@ const NAV_ITEMS = [
     sub: [{ title: 'Tồn kho', to: '/warehouse/stocks' }],
   },
   {
-    title: 'Khuyễn mãi',
+    title: 'Khuyến mãi',
     sub: [
       { title: 'Campaign', to: '/promotion/campaign' },
       { title: 'Voucher', to: '/promotion/voucher' },
@@ -31,22 +32,18 @@ const NAV_ITEMS = [
   },
 ];
 
-function Header() {
+function Sidebar() {
   return (
-    <header className="w-full h-screen flex items-center justify-center px-10 border-r shadow-lg">
-      <div className="h-full w-full max-w-screen-xl  ">
-        <div className="grid p-4">
-          <img src={images.logo} alt="SSStutter Logo" className="w-24 object-contain text-center aspect-square" />
+    <header className="w-full h-screen flex items-center justify-center px-6 border-r shadow-lg">
+      <div className="h-full w-full flex flex-col">
+        <div className="grid justify-center p-4">
+          <img src={images.logo} alt="SSStutter Logo" className="w-16 object-contain aspect-square" />
         </div>
         <Navbar items={NAV_ITEMS} />
-        {/* <div>
-          <button className="text-xl">
-            <FontAwesomeIcon icon={faEllipsisVertical} />
-          </button>
-        </div> */}
+        <SidebarFooter />
       </div>
     </header>
   );
 }
 
-export default Header;
+export default Sidebar;

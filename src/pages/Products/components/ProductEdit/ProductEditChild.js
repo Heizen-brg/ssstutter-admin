@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import Barcode from 'react-barcode';
 import Button from '~/components/Button/Button';
+import Toggle from '~/components/Button/Toggle';
 import { CONFIG } from '~/helper/config/config';
 import { callProductService } from '~/helper/services/callServices';
 
@@ -67,21 +68,16 @@ function ProductEditChilds({ product, cancelEdit }) {
                   <div className="flex flex-col gap-2 w-64">
                     <div className="flex flex-col gap-2">
                       <div className="text-sm">Trạng thái:</div>{' '}
-                      <label className="relative inline-flex items-center cursor-pointer">
-                        <input
-                          data-id={child.id}
-                          name="isActive"
-                          type="checkbox"
-                          value=""
-                          className="sr-only peer"
-                          checked={currentChild.isActive}
-                          onChange={handleUpdate}
-                        />
-                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                        <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                          {currentChild.isActive ? 'Đang hoạt động' : 'Đang ẩn'}
-                        </span>
-                      </label>
+                      <Toggle
+                        data-id={child.id}
+                        name="isActive"
+                        type="checkbox"
+                        value=""
+                        checked={currentChild.isActive}
+                        onChange={handleUpdate}
+                        checkedTitle="Đang hoạt động"
+                        uncheckedTitle="Đang ẩn"
+                      />
                     </div>
                     <div className="text-sm">Ngày tạo: {new Date(child.createdTime).toLocaleString('en-GB')}</div>
                     <Barcode value={child.barcode} fontSize={16} height={60} width={1.5} margin={0} />

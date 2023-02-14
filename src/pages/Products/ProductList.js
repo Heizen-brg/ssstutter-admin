@@ -1,4 +1,4 @@
-import { faCaretLeft, faCaretRight, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft, faAngleRight, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { callProductService } from '~/helper/services/callServices';
@@ -57,7 +57,7 @@ function ProductList() {
 
   const changePage = async (action) => {
     if (action === 'prev') {
-      const skip = Math.max(query.skip - query.limit || 0);
+      const skip = Math.max(query.skip - query.limit, 0);
       if (skip === query.skip) return;
       setQuery({ ...query, skip });
     } else if (action === 'next') {
@@ -68,20 +68,26 @@ function ProductList() {
   };
 
   return (
-    <div className="py-4 px-8 flex justify-center">
-      <div className="w-full max-w-screen-xl">
-        <div className="flex justify-between items-center mb-8">
-          <div className="font-bold">Danh sách sản phẩm</div>
+    <div className="flex justify-center">
+      <div className="w-full h-fit max-w-screen-xl">
+        <div className="flex justify-between items-center mb-8 border-b">
+          <div className="uppercase text-lg py-2">Danh sách sản phẩm</div>
           <div className="flex gap-2 items-center">
-            <FontAwesomeIcon className="w-6 h-6 cursor-pointer" icon={faCaretLeft} onClick={() => changePage('prev')} />
+            <FontAwesomeIcon
+              className={`cursor-pointer text-sm ${query.skip <= 0 ? 'text-zinc-300 pointer-events-none' : ''}`}
+              icon={faAngleLeft}
+              onClick={() => changePage('prev')}
+            />
             <div>{query.skip + 1}</div>
             <div>-</div>
             <div>{query.skip + Math.min(query.limit, products.length)}</div>
             <div>/</div>
             <div>{total}</div>
             <FontAwesomeIcon
-              className="w-6 h-6 cursor-pointer"
-              icon={faCaretRight}
+              className={`cursor-pointer text-sm ${
+                query.skip + products.length >= total ? 'text-zinc-300 pointer-events-none' : ''
+              }`}
+              icon={faAngleRight}
               onClick={() => changePage('next')}
             />
           </div>

@@ -1,6 +1,8 @@
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef, useState } from 'react';
 import Button from '~/components/Button/Button';
-import NavDropdown from './NavDropdown';
+import NavSub from '../NavSub/NavSub';
 
 function NavItem({ item }) {
   const [subItems, setSubItems] = useState(false);
@@ -25,7 +27,7 @@ function NavItem({ item }) {
 
   return (
     <li
-      className="relative h-full after:absolute after:transition-all after:duration-300 after:hover:w-full after:bottom-0 after:rounded after:left-0 after:bg-black after:h-1 after:w-0"
+      className="relative w-full after:absolute after:transition-all after:duration-300 after:hover:w-full after:bottom-0 after:rounded after:left-0 after:bg-black after:h-1 after:w-0"
       ref={ref}
     >
       <Button
@@ -37,7 +39,7 @@ function NavItem({ item }) {
       >
         {item.title}
       </Button>
-      {hasSubItems && subItems ? <NavDropdown className="bg-white" items={item.sub} /> : ''}
+      {hasSubItems && subItems ? <NavSub className="bg-white" items={item.sub} /> : ''}
     </li>
   );
 }
