@@ -4,19 +4,12 @@ import { ImageUpload } from '~/components';
 import { useDialog } from '~/storages/context/DialogContext';
 import { callBannerService } from '~/helper/services/callServices';
 import { useNoti } from '~/storages/context/NotificationContext';
-const BannerDetail = () => {
+const BannerDetail = (props = {}) => {
+  const { id, title, url, cta, ctaColor, image, mobileImage, type } = props;
   const { toggleModal, openDialog } = useDialog();
   const [loading, setLoading] = useState(false);
   const { notification } = useNoti();
-  const [banner, setBanner] = useState({
-    title: '',
-    url: '',
-    cta: '',
-    ctaColor: '',
-    image: '',
-    mobileImage: '',
-    type: '',
-  });
+  const [banner, setBanner] = useState(props);
   const handleChange = (prop) => (event) => {
     setBanner({ ...banner, [prop]: event.target.value });
   };
@@ -36,6 +29,20 @@ const BannerDetail = () => {
       await callBannerService('POST', 'CREATE_BANNER', banner);
       notification('Tạo banner thành công', 'success');
       toggleModal(false);
+      window.location.reload(false);
+    } catch (error) {
+      notification(error.message, 'fail');
+    } finally {
+      setLoading(false);
+    }
+  };
+  const editBanner = async () => {
+    setLoading(true);
+    try {
+      await callBannerService('PUT', 'UPDATE_BANNER', banner);
+      notification('Update banner thành công', 'success');
+      toggleModal(false);
+      window.location.reload(false);
     } catch (error) {
       notification(error.message, 'fail');
     } finally {
@@ -51,10 +58,10 @@ const BannerDetail = () => {
     <div className=" grid  gap-10 p-4  bg-white overflow-auto max-h-full ">
       <div className="grid grid-cols-4 gap-5">
         <div className="w-full col-span-3">
-          <p> Desktop </p> <ImageUpload ratio="landscape" imgUpload={bannerUpload} />
+          <p> Desktop </p> <ImageUpload ratio="landscape" url={image} imgUpload={bannerUpload} />
         </div>
         <div className="w-full col-span-1">
-          <p> Mobile </p> <ImageUpload ratio="portrait" imgUpload={bannerMobileUpload} />
+          <p> Mobile </p> <ImageUpload ratio="portrait" url={mobileImage} imgUpload={bannerMobileUpload} />
         </div>
       </div>
       <div>
@@ -64,6 +71,7 @@ const BannerDetail = () => {
           label="Tên Banner"
           type="text"
           fullWidth
+          defaultValue={title}
           variant="standard"
           size="small"
           onChange={handleChange('title')}
@@ -76,6 +84,7 @@ const BannerDetail = () => {
           fullWidth
           variant="standard"
           size="small"
+          defaultValue={url}
           onChange={handleChange('url')}
         />
         <div className="grid grid-cols-2 gap-10">
@@ -87,16 +96,18 @@ const BannerDetail = () => {
             fullWidth
             variant="standard"
             size="small"
+            defaultValue={cta}
             onChange={handleChange('cta')}
           />
           <TextField
             autoFocus
             margin="dense"
             label="Color CTA"
-            type="text"
+            type="color"
             fullWidth
             variant="standard"
             size="small"
+            defaultValue={ctaColor}
             onChange={handleChange('ctaColor')}
           />
         </div>
@@ -105,21 +116,28 @@ const BannerDetail = () => {
           type="select"
           fullWidth
           variant="standard"
-          select
           label="Type"
-          defaultValue=""
+          select
+          defaultValue={type}
           onChange={handleChange('type')}
         >
-          <MenuItem value="main"> Banner Chính </MenuItem> <MenuItem value="secondary"> Banner Phụ </MenuItem>
+          <MenuItem value="main"> Banner Chính </MenuItem>
+          <MenuItem value="secondary"> Banner Phụ </MenuItem>
         </TextField>
       </div>
       <div className="flex items-center justify-around gap-4">
         <Button variant="outlined" className="w-1/3" onClick={handleClose}>
           Huỷ
         </Button>
-        <Button variant="contained" className="w-1/3" onClick={createBanner}>
-          Tạo
-        </Button>
+        {Object.keys(props).length ? (
+          <Button variant="contained" className="w-1/3" onClick={editBanner}>
+            Xác nhân
+          </Button>
+        ) : (
+          <Button variant="contained" className="w-1/3" onClick={createBanner}>
+            Tạo
+          </Button>
+        )}
       </div>
     </div>
   );

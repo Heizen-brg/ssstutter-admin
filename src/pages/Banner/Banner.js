@@ -17,8 +17,8 @@ const Banner = (props) => {
   const openCreateModal = () => {
     openDialog(<BannerDetail />, 'Tạo banner');
   };
-  const openEditModal = () => {
-    openDialog(<BannerDetail />, 'Sửa banner');
+  const openEditModal = (data) => {
+    openDialog(<BannerDetail {...data} />, 'Sửa banner');
   };
 
   const getBannerList = async () => {
@@ -45,22 +45,20 @@ const Banner = (props) => {
         <div className="p-8 bg-white">
           <div>
             <h2> Banner chính </h2>
-            <ul className="w-full flex flex-row gap-5 p-5 bg-slate-50">
-              {(listBanner || [])
-                .filter((i) => i.type === 'main')
-                .map((banner, index) => {
-                  <li key={index} className="flex flex-col w-1/6" onClick={() => openEditModal(banner)}>
-                    <span
-                      style={{ backgroundImage: `url(${CONFIG.CMS_IMAGE_URL}${banner.image})` }}
-                      className={`relative border landscape`}
-                    >
-                      <p className="absolute top-0 left-0 w-full h-full bg-gray-500 bg-opacity-40 grid place-content-center text-white">
-                        {banner.title}
-                      </p>
-                    </span>
-                  </li>;
-                })}
-            </ul>
+            <div className="w-full flex flex-row gap-5 p-5 bg-slate-50">
+              {(listBanner || []).map((banner, index) => (
+                <div key={index} className="flex flex-col w-1/6" onClick={() => openEditModal(banner)}>
+                  <span
+                    style={{ backgroundImage: `url(${CONFIG.CMS_IMAGE_URL}${banner.image})` }}
+                    className={`relative border landscape`}
+                  >
+                    <p className="absolute top-0 left-0 w-full h-full bg-gray-500 bg-opacity-40 grid place-content-center text-white">
+                      {banner.title}
+                    </p>
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
           <div>
             <h2> Banner phụ </h2>

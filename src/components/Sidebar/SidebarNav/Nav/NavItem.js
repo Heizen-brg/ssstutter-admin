@@ -26,12 +26,9 @@ function NavItem({ item }) {
   };
 
   return (
-    <li
-      className="relative w-full after:absolute after:transition-all after:duration-300 after:hover:w-full after:bottom-0 after:rounded after:left-0 after:bg-black after:h-1 after:w-0"
-      ref={ref}
-    >
+    <li className="relative " ref={ref}>
       <Button
-        className="relative h-full text-xl uppercase"
+        className="relative w-full h-full text-xl  after:absolute after:transition-all after:duration-300 after:hover:w-full after:bottom-0 after:rounded after:left-0 after:bg-black after:h-1 after:w-0"
         // rightIcon={hasSubItems && <FontAwesomeIcon icon={faAngleDown} />}
         to={item.to}
         onClick={showSubItems}
