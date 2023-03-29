@@ -7,7 +7,7 @@ const NotificationProvider = ({ children }) => {
   const [text, setText] = useState('');
   const [type, setType] = useState('');
 
-  const notification = (content, type) => {
+  const notification = (content, type = 'success') => {
     setOpen(true);
     setText(content);
     setType(type);

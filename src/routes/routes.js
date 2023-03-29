@@ -1,12 +1,14 @@
-import { Media, Banner, Homepage, ProductList, SignIn } from '~/pages';
-import Campaign from '~/pages/Promotion/Campaign/Campaign';
+import { Media, Banner, Homepage, ProductList, SignIn, Menu, Campaign, Highlight } from '~/pages';
 import Voucher from '~/pages/Promotion/Voucher/Voucher';
 import Stock from '~/pages/Warehouse/Stock/Stock';
 
 export const publicRoutes = [
   { path: '/', component: Homepage },
+  { path: '/menu', component: Menu },
   { path: '/banner', component: Banner },
   { path: '/media', component: Media },
+  { path: '/highlight', component: Highlight },
+  { path: '/campaign', component: Campaign },
   { path: '/sign-in', component: SignIn },
 ];
 

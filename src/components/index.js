@@ -1,5 +1,7 @@
 export { default as Icon } from './Icon/Icon';
 export { default as Button } from './Button/Button';
+export { default as SelectProduct } from './SelectProduct/SelectProduct';
+export { default as Loader } from './Loader/Loader';
 export { default as Modal } from './Modal/Modal';
 export { default as Input } from './Input/CustomInput';
 export { default as ImageUpload } from './ImageUpload/ImageUpload';

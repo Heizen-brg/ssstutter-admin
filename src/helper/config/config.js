@@ -47,6 +47,40 @@ export const SERVICES = {
       },
     },
   },
+  MENU: {
+    BASE_URL: 'https://core.leanow.vn/api',
+    ENDPOINT: {
+      GET: {
+        SEARCH_MENU: 'menu/search',
+      },
+      POST: {
+        CREATE_MENU: 'menu/create',
+      },
+      PUT: {
+        UPDATE_MENU: 'menu/update',
+      },
+      DELETE: {
+        DELETE_MENU: 'menu/remove',
+      },
+    },
+  },
+  HIGHLIGHT: {
+    BASE_URL: 'https://core.leanow.vn/api',
+    ENDPOINT: {
+      GET: {
+        SEARCH_MENU: 'menu/search',
+      },
+      POST: {
+        CREATE_MENU: 'menu/create',
+      },
+      PUT: {
+        UPDATE_MENU: 'menu/update',
+      },
+      DELETE: {
+        DELETE_MENU: 'menu/remove',
+      },
+    },
+  },
 };
 
 export const CONFIG = {

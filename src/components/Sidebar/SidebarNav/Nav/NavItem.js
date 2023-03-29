@@ -26,9 +26,9 @@ function NavItem({ item }) {
   };
 
   return (
-    <li className="relative " ref={ref}>
+    <li className="relative w-full" ref={ref}>
       <Button
-        className="relative w-full h-full text-xl  after:absolute after:transition-all after:duration-300 after:hover:w-full after:bottom-0 after:rounded after:left-0 after:bg-black after:h-1 after:w-0"
+        className={`relative w-full text-xl  after:absolute after:transition-all after:duration-300  after:hover:w-full after:bottom-0 after:rounded after:left-0 after:bg-black after:h-1 after:w-0`}
         // rightIcon={hasSubItems && <FontAwesomeIcon icon={faAngleDown} />}
         to={item.to}
         onClick={showSubItems}
@@ -36,7 +36,7 @@ function NavItem({ item }) {
       >
         {item.title}
       </Button>
-      {hasSubItems && subItems ? <NavSub className="bg-white" items={item.sub} /> : ''}
+      {hasSubItems && subItems ? <NavSub className="bg-white pl-4" items={item.sub} /> : ''}
     </li>
   );
 }

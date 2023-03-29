@@ -8,8 +8,20 @@ const NAV_ITEMS = [
     to: '/',
   },
   {
+    title: 'Menu',
+    to: '/menu',
+  },
+  {
     title: 'Banner',
     to: '/banner',
+  },
+  {
+    title: 'Highlight Product',
+    to: '/highlight',
+  },
+  {
+    title: 'Campaign',
+    to: '/campaign',
   },
   {
     title: 'Media',

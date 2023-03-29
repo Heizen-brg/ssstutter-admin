@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, MenuItem, Button } from '@mui/material';
 import { ImageUpload } from '~/components';
 import { useDialog } from '~/storages/context/DialogContext';
@@ -10,16 +10,20 @@ const BannerDetail = (props = {}) => {
   const [loading, setLoading] = useState(false);
   const { notification } = useNoti();
   const [banner, setBanner] = useState(props);
+  const [bannerType, setBannerType] = useState('main');
+
+  useEffect(() => {
+    setBannerType(banner.type);
+  }, [banner.type]);
+
   const handleChange = (prop) => (event) => {
     setBanner({ ...banner, [prop]: event.target.value });
   };
 
   const bannerUpload = (data) => {
-    console.log(data);
     setBanner({ ...banner, image: data.url });
   };
   const bannerMobileUpload = (data) => {
-    console.log(data);
     setBanner({ ...banner, mobileImage: data.url });
   };
 
@@ -49,6 +53,19 @@ const BannerDetail = (props = {}) => {
       setLoading(false);
     }
   };
+  const deleteBanner = async () => {
+    setLoading(true);
+    try {
+      await callBannerService('DELETE', 'DELETE_BANNER', { params: id });
+      notification('Xoá banner thành công', 'success');
+      toggleModal(false);
+      window.location.reload(false);
+    } catch (error) {
+      notification(error.message, 'fail');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleClose = () => {
     toggleModal(false);
@@ -56,14 +73,36 @@ const BannerDetail = (props = {}) => {
 
   return (
     <div className=" grid  gap-10 p-4  bg-white overflow-auto max-h-full ">
-      <div className="grid grid-cols-4 gap-5">
-        <div className="w-full col-span-3">
-          <p> Desktop </p> <ImageUpload ratio="landscape" url={image} imgUpload={bannerUpload} />
+      <TextField
+        margin="dense"
+        type="select"
+        fullWidth
+        variant="standard"
+        label="Loại Banner"
+        select
+        defaultValue={type}
+        onChange={handleChange('type')}
+      >
+        <MenuItem value="main"> Banner Chính </MenuItem>
+        <MenuItem value="secondary"> Banner Phụ </MenuItem>
+      </TextField>
+      {bannerType == 'main' && (
+        <div className="grid grid-cols-4 gap-5">
+          <div className="w-full col-span-3">
+            <p> Desktop </p> <ImageUpload ratio="landscape" url={image} imgUpload={bannerUpload} />
+          </div>
+          <div className="w-full col-span-1">
+            <p> Mobile </p> <ImageUpload ratio="portrait" url={mobileImage} imgUpload={bannerMobileUpload} />
+          </div>
         </div>
-        <div className="w-full col-span-1">
-          <p> Mobile </p> <ImageUpload ratio="portrait" url={mobileImage} imgUpload={bannerMobileUpload} />
+      )}
+      {bannerType == 'secondary' && (
+        <div className="grid gap-5">
+          <div className="w-full">
+            <p> Banner </p> <ImageUpload ratio="ribbon" url={image} imgUpload={bannerUpload} />
+          </div>
         </div>
-      </div>
+      )}
       <div>
         <TextField
           autoFocus
@@ -111,32 +150,26 @@ const BannerDetail = (props = {}) => {
             onChange={handleChange('ctaColor')}
           />
         </div>
-        <TextField
-          margin="dense"
-          type="select"
-          fullWidth
-          variant="standard"
-          label="Type"
-          select
-          defaultValue={type}
-          onChange={handleChange('type')}
-        >
-          <MenuItem value="main"> Banner Chính </MenuItem>
-          <MenuItem value="secondary"> Banner Phụ </MenuItem>
-        </TextField>
       </div>
       <div className="flex items-center justify-around gap-4">
-        <Button variant="outlined" className="w-1/3" onClick={handleClose}>
-          Huỷ
-        </Button>
         {Object.keys(props).length ? (
-          <Button variant="contained" className="w-1/3" onClick={editBanner}>
-            Xác nhân
-          </Button>
+          <>
+            <Button variant="contained" className="w-2/3" onClick={editBanner}>
+              Xác nhân
+            </Button>
+            <Button variant="contained" color="error" className="w-1/4" onClick={deleteBanner}>
+              Xoá
+            </Button>
+          </>
         ) : (
-          <Button variant="contained" className="w-1/3" onClick={createBanner}>
-            Tạo
-          </Button>
+          <>
+            <Button variant="outlined" className="w-1/3" onClick={handleClose}>
+              Huỷ
+            </Button>
+            <Button variant="contained" className="w-1/3" onClick={createBanner}>
+              Tạo
+            </Button>
+          </>
         )}
       </div>
     </div>
