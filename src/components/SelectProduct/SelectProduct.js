@@ -3,13 +3,18 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import CircularProgress from '@mui/material/CircularProgress';
 import { callProductService } from '~/helper/services/callServices';
-
+const sleep = (delay = 0) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, delay);
+  });
+};
 function SelectProduct(props) {
+  const { currentData, selectProducts } = props;
   const [openSearch, setOpenSearch] = useState(false);
   const [options, setOptions] = useState([]);
-  const [currentProducts, setCurrentProducts] = useState(props.currentData || []);
+  const [currentProducts, setCurrentProducts] = useState(currentData || []);
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const loading = openSearch && options.length === 0;
 
   const [query, setQuery] = useState({
     skip: 0,
@@ -17,50 +22,41 @@ function SelectProduct(props) {
     name: '',
   });
 
+  const onSearch = (e) => {
+    setQuery({ ...query, name: e.target.value });
+  };
+
   const searchProduct = async () => {
-    setLoading(true);
     try {
       const products = await callProductService('GET', 'SEARCH_PARENT', { ...query }, 'by-passs');
       setProducts(products.result);
     } catch (err) {
       console.log(err.message);
     } finally {
-      setLoading(false);
+      return;
     }
   };
+  // useEffect(() => {
+  //
+  // }, [currentProducts]);
 
   useEffect(() => {
-    let active = true;
-
-    if (!loading) {
-      return undefined;
-    }
-
     (async () => {
       await sleep(1e3);
-
-      if (active) {
-        setOptions([...products]);
-      }
+      setOptions([...products]);
     })();
+  }, [products]);
 
-    return () => {
-      active = false;
-    };
-  }, [loading]);
+  useEffect(() => {
+    const timeOutId = setTimeout(() => searchProduct(), 500);
+    return () => clearTimeout(timeOutId);
+  }, [query.name]);
 
   useEffect(() => {
     if (!openSearch) {
       setOptions([]);
-    } else {
-      searchProduct();
     }
   }, [openSearch]);
-  const sleep = (delay = 0) => {
-    return new Promise((resolve) => {
-      setTimeout(resolve, delay);
-    });
-  };
 
   return (
     <Autocomplete
@@ -72,19 +68,19 @@ function SelectProduct(props) {
         setOpenSearch(false);
       }}
       onChange={(event, newValue) => {
-        console.log(newValue);
-        setCurrentProducts([...newValue]);
+        selectProducts(newValue);
       }}
       multiple
       defaultValue={currentProducts}
       isOptionEqualToValue={(option, value) => option.name === value.name}
       getOptionLabel={(option) => option.name}
-      options={options}
+      options={options || []}
       loading={loading}
       renderInput={(params) => (
         <TextField
           {...params}
           label="Tìm kiếm sản phẩm"
+          onChange={onSearch}
           InputProps={{
             ...params.InputProps,
             endAdornment: (

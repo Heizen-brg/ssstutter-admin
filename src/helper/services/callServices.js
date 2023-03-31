@@ -6,6 +6,7 @@ const warehouseAxios = axios.create({ baseURL: SERVICES.WAREHOUSE.BASE_URL });
 const mediaAxios = axios.create({ baseURL: SERVICES.MEDIA.BASE_URL });
 const bannerAxios = axios.create({ baseURL: SERVICES.BANNER.BASE_URL });
 const menuAxios = axios.create({ baseURL: SERVICES.MENU.BASE_URL });
+const highlightAxios = axios.create({ baseURL: SERVICES.HIGHLIGHT.BASE_URL });
 
 const callServices = (axios, SERVICES) => {
   return async (method, service, payload, auth, controller) => {
@@ -95,3 +96,4 @@ export const callWarehouseService = callServices(warehouseAxios, SERVICES.WAREHO
 export const callMediaService = callServices(mediaAxios, SERVICES.MEDIA.ENDPOINT);
 export const callBannerService = callServices(bannerAxios, SERVICES.BANNER.ENDPOINT);
 export const callMenuService = callServices(menuAxios, SERVICES.MENU.ENDPOINT);
+export const callHighlightService = callServices(highlightAxios, SERVICES.HIGHLIGHT.ENDPOINT);

@@ -68,16 +68,19 @@ export const SERVICES = {
     BASE_URL: 'https://core.leanow.vn/api',
     ENDPOINT: {
       GET: {
-        SEARCH_MENU: 'menu/search',
+        SEARCH_HIGHLIGHT: 'carousel/search',
+      },
+      DETAIL: {
+        SEARCH_HIGHLIGHT: 'carousel/detail',
       },
       POST: {
-        CREATE_MENU: 'menu/create',
+        CREATE_HIGHLIGHT: 'carousel/create',
       },
       PUT: {
-        UPDATE_MENU: 'menu/update',
+        UPDATE_HIGHLIGHT: 'carousel/update',
       },
       DELETE: {
-        DELETE_MENU: 'menu/remove',
+        DELETE_HIGHLIGHT: 'carousel/remove',
       },
     },
   },
